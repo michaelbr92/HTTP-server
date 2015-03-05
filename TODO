@@ -1,0 +1,9 @@
+TODO:
+
+Right now:
+    -Add transfer-encoding: chunked*
+    -Threading
+
+In the future:
+    -Implement security
+    -add .htaccess file
