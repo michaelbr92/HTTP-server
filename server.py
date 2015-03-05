@@ -9,9 +9,7 @@ import sys
 # Code starts here
 # =============================
 
-class HTTP():  # TODO Do one handler with ifs
-
-    # TODO: Add URI verification ; Think about headers ; Check HTTP version Reqex
+class HTTP():
 
     def receive(self, conn):
         """ Receive the request from the client
@@ -83,7 +81,7 @@ class HTTP():  # TODO Do one handler with ifs
 
         return method, URI, version, headers, data
 
-    def receive_new(self, conn):
+    def receive_new(self, conn): # TODO: Change the receiving function
         methods = ["OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT"]
         # Method (Read\Check)
         method = ""
@@ -122,7 +120,7 @@ class HTTP():  # TODO Do one handler with ifs
 
             self.custom_redirection = {"/params_info.html": Parse.query2table}
 
-    def handle_request(self, method=""):
+    def handle_request(self, method=""): # TODO Finish the rest of the handler
         """
         Handle the request
         :param method: request method
@@ -130,36 +128,40 @@ class HTTP():  # TODO Do one handler with ifs
         """
         if not method: method = self.method
 
-        if method in ["GET", "POST"]:
+        if method in ["GET", "POST", "HEAD"]:
+            # add the parameters in the data to the query if method is POST
             if method == "POST" and self.data:
                 parameters = self.data.split("&")
                 for pair in parameters:
                     var = pair.split("=")
                     if var[0] not in self.query:
                         self.query.update({var[0]: var[1]})
-            request_file = self.PATH.replace('/', Const.DIR_SPLITTER)  # Change the slashes to fit the OS
-            path = (os.getcwd() + request_file)  # Add CWD to the path
-            filename = os.path.split(path)[1]  # Split the file name from the tail and take the file name
+            # prepare the filename and path
+            request_file = self.PATH.replace('/', Const.DIR_SPLITTER)
+            path = (os.getcwd() + request_file)
+            filename = os.path.split(path)[1]
 
             if self.PATH in self.custom_redirection:
                 data = self.custom_redirection[self.PATH](self.query)
                 response = Responses.OK(data)
-            elif os.path.isfile(path):
-                # Check if the file exists
 
+            elif os.path.isfile(path):
                 if filename in Const.FORBIDDEN_FILES:
                     response = Responses.Forbidden()
                 else:
                     response = Responses.OK(path)
+
             else:
                 if filename in Const.MOVED_FILES:
                     response = Responses.MOVED(filename)
                 else:
                     response = Responses.NOT_FOUND()
 
+            if method == "HEAD":
+                response = response.split("\r\n\r\n")[0] + "\r\n\r\n"
+
             return response
 
-            pass
 
     def Respond(self):
         """
