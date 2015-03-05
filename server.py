@@ -125,7 +125,18 @@ class HTTP(): # TODO Do one handler with ifs
             self.custom_redirection = {"/params_info.html":Parse.query2table}
 
     def handle_request(self, method):
+        """
+        Handle the request 
+        :param method:
+        :return:
+        """
         if method in ["GET","POST"]:
+            if method == "POST" and self.data:
+                parameters = self.data.split("&")
+                for pair in parameters:
+                    var = pair.split("=")
+                    if var[0] not in self.query:
+                        self.query.update({var[0]: var[1]})
             request_file = self.PATH.replace('/', Const.DIR_SPLITTER)  # Change the slashes to fit the OS
             path = (os.getcwd() + request_file)  # Add CWD to the path
             filename = os.path.split(path)[1]  # Split the file name from the tail and take the file name
@@ -148,7 +159,7 @@ class HTTP(): # TODO Do one handler with ifs
 
             return response
 
-        if method == "POST":
+
 
             pass
 

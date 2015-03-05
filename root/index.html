@@ -1,0 +1,297 @@
+<html>
+
+<head>
+<title>Computer Networks</title>
+</head>
+
+<style>
+html{
+  margin:0;
+  height:100%;
+  box-shadow:inset 0 0 10em black;
+  transform: translateZ(0);
+  overflow: hidden;
+}
+body{
+  margin:0;
+  height:100%;
+  background:url(background.jpg) no-repeat;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+}
+.required{
+z-index:100;
+height:100%;
+position:fixed;
+}
+.smoke{
+  position:fixed;
+  opacity:0;
+  margin:0;
+  width:100%;
+  height:100%;
+  opactiy:0;
+  background:url(smoke.png) no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.l1{
+  z-index:4;
+  animation:smoke 60s infinite alternate;
+  -moz-transform: scale(-1);
+  -o-transform: scale(-1);
+  -webkit-transform: scale(-1);
+  transform: scale(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+  -webkit-filter:contrast(50%) saturate(10%) sepia(100%) hue-rotate(60deg);
+}
+.l2{
+   z-index:5;
+  -webkit-filter:contrast(50%) saturate(20%) sepia(50%) hue-rotate(60deg);
+  animation:smoke 40s infinite alternate;
+}
+.l3{
+   z-index:6;
+  animation:smoke 30s infinite alternate;
+  -webkit-filter:contrast(120%) saturate(50%) sepia(20%) hue-rotate(600deg);
+}
+
+.lense{
+  position:fixed;
+  margin:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  background:url(lense.png) no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -moz-transform: scale(-1);
+  -o-transform: scale(-1);
+  -webkit-transform: scale(-1);
+  transform: scale(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+  background-position: left top;
+  -webkit-filter:contrast(200%) saturate(10%) sepia(10%) hue-rotate(20deg) blur(2em);
+  z-index:3;
+  animation:lense 30s infinite alternate;}
+
+.texture{
+  position:fixed;
+  margin:0;
+  width:100%;
+  height:100%;
+  background:url(background.jpg) no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -moz-transform: scale(-1);
+  -o-transform: scale(-1);
+  -webkit-transform: scale(-1);
+  transform: scale(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+  opacity:.2;
+  z-index:2;
+  animation: burn 100s;
+}
+.hazard{
+  margin:0 auto;
+  position:relative;
+  top:3em;
+  width:25em;
+  box-shadow:-.25em .5em 5em rgba(0,0,0,.65);
+  transform:rotate(2deg);
+}
+.upper{
+  background:#f7d621;
+  padding:1.5em;
+}
+.circle{
+  margin:0 auto;
+  background:#191a1f;
+  width:20em;
+  height:20em;
+  border-radius:12em;
+  padding:1em;
+}
+.triangle{
+  width: 0; 
+  height: 0; 
+  border-left: 5em solid transparent;
+  border-right: 5em solid transparent;
+  border-top: 8.5em solid #f7d621;
+  position:relative;
+  top:1.25em;
+}
+.triangle:nth-child(1){
+  margin:0 auto;
+}
+.triangle:nth-child(2){
+  float:right;
+}
+.lower{
+  background:#191a1f;
+  text-align:center;
+  color:#f7d621;
+}
+.lower h1{
+  font-family: 'Anton', sans-serif; 
+  font-size:3.8em;
+  line-height:1.25em;
+  margin-bottom:1em;
+}
+.lower h2{
+  font-family:sans-serif;
+  font-size:6px;
+  line-height:5em;
+}
+
+@keyframes burn{
+  0%{opacity:0;}
+  20%{opacity:.1;}
+  100%{ -webkit-filter:contrast(110%) sepia(100%);opacity:.2;}
+}
+@keyframes smoke{
+  0%{
+    opacity:0;
+    background-size:300%;
+    transform:skew(0deg) scale(1);
+    -webkit-filter:contrast(100%) saturate(90%) sepia(0%) blur(.5em);
+  }
+  50%{
+    opacity:.5;
+    background-size:200%;
+    transform:skew(10deg) scale(1.1);
+    -webkit-filter:contrast(200%) saturate(200%) brightness(75%) sepia(10%) blur(.5em);  
+  }
+  100%{
+    opacity:0;
+    transform:skew(0deg) scale(1);
+    -webkit-filter:contrast(100%) saturate(90%) sepia(00%)blur(.25em);
+    background-size:300%;
+    background-position: bottom;
+  }
+}
+@keyframes lense{
+  0%{
+    opacity:.75;
+    background-size:300%;
+    -webkit-filter:contrast(100%) saturate(10%) sepia(10%) hue-rotate(20deg) blur(2em);
+    background-position: bottom;
+  }
+  50%{
+    opacity:.25;
+    background-size:100%;
+    -webkit-filter:contrast(150%) saturate(100%) sepia(100%) hue-rotate(60deg) blur(2em);
+    background-position: left;
+  }
+  100%{
+    opacity:.75;
+    background-size:300%;
+    -webkit-filter:contrast(100%) saturate(100%) sepia(60%) hue-rotate(50deg) ;
+    background-position: top;
+  }
+}
+table {
+display:inline-block;
+margin-right : 50px;
+}
+form {
+display:inline-block;
+margin-right : 50px;
+}
+.important {
+display:inline-block;
+margin-right : 50px;
+box-shadow:inset 0 0 10em black;
+}
+
+.important form{
+color: white;
+margin: auto 10px;
+}
+</style>
+
+
+
+<body background="background.jpg">
+<div class="smoke l1"></div>
+<div class="smoke l2"></div>
+<div class="smoke l3"></div>
+<div class="lense"></div>
+<div class="texture"></div>
+<div class="required">
+<marquee direction="ltr"><font color="blue"><b>Computer networks 2014/2015 </b></font></marquee>
+<br/>
+
+
+<h1><font color="red">TEST SITE</font></h1><br/>
+
+<table border="1">
+<th colspan="2">table form ex1</th>
+<tr> <td> Show me the images: </td><td><a href="#images">images</a></td></tr>
+<tr><td>Show me website I like: </td><td><a href="http://www.google.co.il">website</a></td></tr>
+<tr><td>Show me the forms:</td><td><a href="#forms">forms</a></td></tr>
+<tr><td>Contact Us:</td><td><a href="mailto:uri.confino@post.idc.ac.il">mail me</a></td></tr>
+</table>
+<div class="important">
+<form id="forms" method="POST" action="params_info.html">
+<h1>New Post Parms</h1>
+<input type="checkbox" name="params_info_vehicle" value="You Bet Your Ass I Do">I Fucking Love Somke<br>
+<textarea rows="10" cols="30" name="params_info_text"></textarea><br/>
+<input type="submit" value="submit"/></br>
+</form>
+</div>
+
+<form id="forms" method="GET" action="index.html">
+<p>get form</p>
+<textarea rows="10" cols="10" name="text"></textarea><br/>
+<input type="submit" value="submit"/></br>
+</form>
+
+
+<form method="POST" action="index.html">
+<p>post form</p>
+ <select name="selectBox">
+        <option value="firstOption">first</option>
+        <option value="secondOption">second</option>
+        <option value="thirdOption">third</option>
+    </select> <br/>
+	<select name="127100">
+        <option value="F">1</option>
+        <option value="S">2</option>
+        <option value="T">7</option>
+    </select> <br/>
+<input type="submit" value="submit"/></br>
+</form>
+<hr/>
+<center id="images">
+	<img width="20%" height="200px" src="http://www.dweebist.com/wp-content/uploads/2010/09/cool-dog.jpg"/>
+	<img width="20%"  height="200px"  src="http://hdwallpapersd.com/wp-content/uploads/2014/06/cool-background-for-designer-wallpaper.jpg"/>
+	<img width="20%"  height="200px" src="http://www.funlava.com/wp-content/uploads/2013/03/Cool_Backgrounds_Wallpapers_hdcoolacousticguitarwallpaper.jpg"/>
+</center><br/>
+<hr/>
+<iframe id ="site" src="" width="100%" height ="50%"></iframe><br/>
+
+<hr><br/>
+
+
+</div>
+<script>
+window.onload = function ()
+{
+document.getElementById("site").src = "http://apropo.cf/";
+}
+</script>
+</body>
+</html>
