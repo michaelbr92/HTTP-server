@@ -1,5 +1,6 @@
 import urllib
 
+
 class Parse:
     def __init__(self):
         pass
@@ -45,7 +46,7 @@ class Parse:
                '</tr>'
         for pair in query:
             data += "<tr>"
-            data +="<td>{}</td><td>{}</td>".format(pair, query[pair])
+            data += "<td>{}</td><td>{}</td>".format(pair, query[pair])
             data += "</tr>"
         data += '</table>'
         return data

@@ -9,7 +9,9 @@ while 1:
     s = socket.socket()
     s.connect((HOST, PORT))
 
-    print "Connected to {}:{}- \nWrite the massage and add 'END' in the last line \n ('END' wont be part of the request)".format(HOST, PORT)
+    print "Connected to {}:{}- \n" \
+          "Write the massage and add 'END' in the last line \n " \
+          "('END' wont be part of the request)".format(HOST, PORT)
     request = ''
     while 1:
         line = raw_input(">")

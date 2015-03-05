@@ -9,7 +9,7 @@ import sys
 # Code starts here
 # =============================
 
-class HTTP(): # TODO Do one handler with ifs
+class HTTP():  # TODO Do one handler with ifs
 
     # TODO: Add URI verification ; Think about headers ; Check HTTP version Reqex
 
@@ -33,7 +33,7 @@ class HTTP(): # TODO Do one handler with ifs
         for _ in xrange(7):
             method += conn.recv(1)
             # Log.Log("[e]" + method + "\n")
-            if method[-1:] == ' ':break
+            if method[-1:] == ' ': break
         if method.strip() not in methods:
             return None
 
@@ -73,14 +73,13 @@ class HTTP(): # TODO Do one handler with ifs
                     while length[-2:] != "\r\n":
                         length += conn.recv(1)
                     length = length[:-2]
-                    data += conn.recv(length+2).replace("\r\n", "")
+                    data += conn.recv(length + 2).replace("\r\n", "")
                     if not length: break
 
             elif "Content-Length:" in headers:
                 SPLIT_LENGTH = re.compile(r"Content-Length:\s*(\d+)\s*\r\n")
                 data_len = int(SPLIT_LENGTH.findall(headers)[0].strip())
                 data = conn.recv(data_len)
-
 
         return method, URI, version, headers, data
 
@@ -91,7 +90,7 @@ class HTTP(): # TODO Do one handler with ifs
         for _ in xrange(7):
             method += conn.recv(1)
             # Log.Log("[e]" + method + "\n")
-            if method[-1:] == ' ':break
+            if method[-1:] == ' ': break
         if method.strip() not in methods:
             return None
 
@@ -109,12 +108,11 @@ class HTTP(): # TODO Do one handler with ifs
         # Split the request if HTTP Request
         self.valid = bool(self.request)
         if self.valid:
-
-            self.method,\
-            self.URI,\
-            self.version,\
-            self.headers,\
-            self.data   = self.request
+            self.method, \
+            self.URI, \
+            self.version, \
+            self.headers, \
+            self.data = self.request
 
             self.method = self.method.strip()
             self.URI = self.URI.strip()
@@ -122,15 +120,17 @@ class HTTP(): # TODO Do one handler with ifs
             self.PATH, self.query = Parse.URI2query(self.URI)
             self.headers = Parse.headers2dict(self.headers)  # Parse the headers to a dictionary
 
-            self.custom_redirection = {"/params_info.html":Parse.query2table}
+            self.custom_redirection = {"/params_info.html": Parse.query2table}
 
-    def handle_request(self, method):
+    def handle_request(self, method=""):
         """
-        Handle the request 
-        :param method:
-        :return:
+        Handle the request
+        :param method: request method
+        :return: the popper response
         """
-        if method in ["GET","POST"]:
+        if not method: method = self.method
+
+        if method in ["GET", "POST"]:
             if method == "POST" and self.data:
                 parameters = self.data.split("&")
                 for pair in parameters:
@@ -159,8 +159,6 @@ class HTTP(): # TODO Do one handler with ifs
 
             return response
 
-
-
             pass
 
     def Respond(self):
@@ -175,7 +173,7 @@ class HTTP(): # TODO Do one handler with ifs
 
         # Methods dictionary
         self.methods = {"GET": self.GET, "HEAD": self.HEAD, "TRACE": self.TRACE,
-                        "OPTIONS": self.OPTIONS, "POST":self.POST}
+                        "OPTIONS": self.OPTIONS, "POST": self.POST}
         if not self.valid:
             return Responses.Bad_Request()
         if self.method in self.methods:
@@ -244,7 +242,8 @@ class HTTP(): # TODO Do one handler with ifs
                    "\r\n".format(available)
         return response
 
-class Client(threading.Thread ):
+
+class Client(threading.Thread):
     ID = 0  # ID counter
     available_ID = []  # List of old ID not in use
 
@@ -259,7 +258,7 @@ class Client(threading.Thread ):
         :param server_socket:
         :return:
         """
-        threading.Thread.__init__( self )
+        threading.Thread.__init__(self)
         self.conn, self.addr = server_socket.accept()
         if Client.available_ID:
             self.ID = Client.available_ID.pop()
@@ -286,7 +285,7 @@ class Client(threading.Thread ):
         if HTTP_request.valid:
             Log.request(HTTP_request.request, self)  # Log the connection
         else:
-            Log.Log("[d] Bad request from {}:{}\n".format(self.addr[0],self.addr[1]) )
+            Log.Log("[d] Bad request from {}:{}\n".format(self.addr[0], self.addr[1]))
         if HTTP_request.valid:
             response = HTTP_request.Respond()
         else:
@@ -301,13 +300,14 @@ class Client(threading.Thread ):
         self.conn.close()
         del self
 
+
 def d_main():
     from modules.const import Const as const
     from modules.log import Log as log
     from modules.parse import Parse as parse
     from modules.responses import Responses as responses
 
-    global Const ,Log ,Parse ,Responses
+    global Const, Log, Parse, Responses
 
     Const = const()
     os.chdir(Const.ROOT)
@@ -328,6 +328,7 @@ def d_main():
             threads.append(c)
             c.start()
 
+
 def main():
     """ Creates a new socket and searches for clients
 
@@ -337,7 +338,7 @@ def main():
     from modules.parse import Parse as parse
     from modules.responses import Responses as responses
 
-    global Const ,Log ,Parse ,Responses
+    global Const, Log, Parse, Responses
 
     Const = const()
     Log = log(log=True, debug=False, colors=True)
@@ -362,7 +363,8 @@ def main():
             c = Client(server_socket)
             threading.Thread(target=c.run).run()
         except Exception as e:
-            Log.Log("[e]" + str(e)+"\n")
+            Log.Log("[e]" + str(e) + "\n")
+
 
 if __name__ == '__main__':
     d_main()

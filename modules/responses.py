@@ -1,7 +1,9 @@
 import mimetypes
 import os
 from const import Const
+
 const = Const()
+
 
 class Responses():
     def __init__(self):
@@ -16,7 +18,7 @@ class Responses():
         headers = "Server: Misha's (X-platform)\r\n"
         return headers
 
-    def Create(self, status, headers='',data ="", Type ="text/html", version="HTTP/1.1"):
+    def Create(self, status, headers='', data="", Type="text/html", version="HTTP/1.1"):
         response = ""
         response += "{} {}\r\n".format(version, status)
         response += self.Headers()
@@ -26,7 +28,7 @@ class Responses():
             response += "Content-Length: {}\r\n\r\n{}".format(len(data), data)
         return response
 
-    def OK(self, msg, mime="text/html" ):
+    def OK(self, msg, mime="text/html"):
         """
         Assemble the OK 200 response
         if given a path
