@@ -5,7 +5,7 @@ from const import Const
 const = Const()
 
 
-class Responses():
+class Responses():  # TODO: add chunked encoding
     def __init__(self):
         pass
 
